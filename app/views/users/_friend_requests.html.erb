@@ -1,0 +1,16 @@
+<h4><span class="label label-primary">Friend Requests</span></h4>
+<ul class="list-group">
+  <% current_user.friend_requests.page(params[:friend_request_page]).each do |friend_request| %>
+  <li class="list-group-item">
+    <% if friend_request.try(:friend).try(:avatar_url).present? %>
+    <%= image_tag friend_request.try(:friend).try(:avatar_url), height: '32', width: '32'  %>
+    <% else %>
+    <%= image_tag 'default-avatar.jpg', height: '32', width: '32'  %>
+    <% end %>
+    <%= friend_request.try(:friend).try(:name) %>
+    <a class="btn btn-success" href="<%= friend_accept_path(:friend_id => friend_request.try(:friend).try(:id)) %>">Accept</a>
+    <a class="btn btn-danger" href="#">Reject</a>
+  </li>
+  <% end %>
+  <%= paginate current_user.friend_requests.page(params[:friend_request_page]), param_name: 'friend_request_page' %>
+</ul>

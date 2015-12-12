@@ -1,0 +1,14 @@
+<h4><span class="label label-primary">Friends</span></h4>
+<div class="list-group">
+  <% current_user.friendships.page(params[:friend_page]).each do |friendship| %>
+  <a class="list-group-item" href="#">
+    <% if friendship.try(:friend).try(:avatar_url).present? %>
+      <%= image_tag friendship.try(:friend).try(:avatar_url), height: '32', width: '32'  %>
+    <% else %>
+      <%= image_tag 'default-avatar.jpg', height: '32', width: '32'  %>
+    <% end %>
+    <%= friendship.try(:friend).try(:name) %>
+  </a>
+  <% end %>
+</div>
+<%= paginate current_user.friendships.page(params[:friend_page]), param_name: 'friend_page' %>

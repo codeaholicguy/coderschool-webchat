@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :signed_in?, :sign_in
+  helper_method :current_user, :signed_in?, :sign_in, :is_friend, :is_me,
+                :is_request_sent, :is_waiting_for_accept, :is_blocked
 
   def current_user
     return if !session[:user_id].present?
@@ -23,12 +24,32 @@ class ApplicationController < ActionController::Base
 
   def skip_if_signed_in
     if signed_in?
-      redirect_to users_path
+      redirect_to messages_path
     end
   end
 
   def sign_in(user)
     session[:user_id] = user.id
+  end
+
+  def is_friend(user)
+    current_user.friendships.find_by(friend: user).present?
+  end
+
+  def is_me(user)
+    current_user == user
+  end
+
+  def is_request_sent(user)
+    user.friend_requests.find_by(friend: current_user).present?
+  end
+
+  def is_waiting_for_accept(user)
+    current_user.friend_requests.find_by(friend: user).present?
+  end
+
+  def is_blocked(user)
+    current_user.blocked_users.find_by(friend: user).present?
   end
 
 end

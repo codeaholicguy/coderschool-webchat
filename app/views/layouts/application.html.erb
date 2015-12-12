@@ -6,36 +6,56 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-  <nav class="navbar navbar-light bg-faded">
 
-    <!-- Toggle Button -->
-    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#nav-content">
-      &#9776;
-    </button>
-    <!-- Nav Content -->
-    <div class="collapse navbar-toggleable-xs" id="nav-content">
-      <a class="navbar-brand" href="/">WebChat</a>
-      <ul class="nav navbar-nav">
-        <% if !signed_in? %>
-        <li class="nav-item">
-          <a class="nav-link" href="/sign-up">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/sign-in">Sign In</a>
-        </li>
-        <% end %>
+  <div class="site-wrapper">
 
-        <% if signed_in? %>
-        <li class="nav-item">
-          <a class="nav-link" href="/sign-out">Sign Out</a>
-        </li>
-        <% end %>
-      </ul>
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">WebChat</h3>
+              <nav class="nav nav-masthead">
+                <% if !signed_in? %>
+                  <a class="nav-link" href="/sign-up">Sign Up</a>
+                  <a class="nav-link" href="/sign-in">Sign In</a>
+                <% end %>
+
+                <% if signed_in? %>
+                  <% if current_user.try(:avatar_url).present? %>
+                  <%= image_tag current_user.try(:avatar_url), height: '32', width: '32' %>
+                  <% else %>
+                  <%= image_tag 'default-avatar.jpg', height: '32', width: '32' %>
+                  <% end %>
+                  <a class="nav-link" href="<%= messages_path %>">
+                    <%= current_user.try(:name) %>
+                  </a>
+                  <a class="nav-link" href="<%= users_path %>">Browse Profiles</a>
+                  <a class="nav-link" href="/sign-out">Sign Out</a>
+                <% end %>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <div class="container">
+              <%= flash_messages %>
+              <%= yield %>
+            </div>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
-  </nav>
-
-  <%= flash_messages %>
-  <%= yield %>
 
 </body>
 </html>

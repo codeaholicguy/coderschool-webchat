@@ -1,0 +1,29 @@
+<% if !is_me(user) %>
+<div class="col-xs-12 col-md-4">
+  <div class="card card-<%= cycle('male', 'female') %>">
+    <div class="card-block text-xs-center">
+      <% if user.try(:avatar_url).present? %>
+        <%= image_tag user.try(:avatar_url) %>
+      <% else %>
+        <%= image_tag 'default-avatar' %>
+      <% end %>
+      <h4 class="card-title"><%= user.try(:name) %></h4>
+      <% if !is_friend(user) && !is_request_sent(user) && !is_waiting_for_accept(user) && !is_blocked(user) %>
+      <a class="btn btn-success" href="<%= friend_request_path(:friend_id => user.try(:id)) %>">Request friend</a>
+      <% end %>
+      <% if is_request_sent(user) %>
+      <a class="btn btn-secondary" href="#">Request sent</a>
+      <% end %>
+      <% if is_waiting_for_accept(user) %>
+      <a class="btn btn-primary" href="#">Accept</a>
+      <% end %>
+      <% if is_blocked(user) %>
+      <a class="btn btn-warning" href="#">Unblock</a>
+      <% end %>
+      <% if is_friend(user) %>
+      <a class="btn btn-danger" href="#">Remove friend</a>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

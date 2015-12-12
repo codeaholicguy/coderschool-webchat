@@ -1,0 +1,6 @@
+      invoke  active_record
+      create    db/migrate/20151212065321_create_friendships.rb
+      create    app/models/friendship.rb
+      invoke    test_unit
+      create      test/models/friendship_test.rb
+      create      test/fixtures/friendships.yml

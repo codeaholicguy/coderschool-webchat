@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'messages/index'
+
   get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -9,12 +11,16 @@ Rails.application.routes.draw do
 
   resources :users
   resources :sessions
+  resources :messages
 
   get 'sign-up' => 'users#new'
   get 'sign-in' => 'sessions#new'
   get 'sign-out' => 'sessions#destroy'
 
   get 'auth/:provider/callback' => 'sessions#callback'
+
+  get 'friend-request' => 'users#send_friend_request'
+  get 'friend-accept' => 'users#accept_friend_request'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

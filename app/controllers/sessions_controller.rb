@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       sign_in(user)
       flash[:success] = "Hello #{user.name}."
-      redirect_to users_path
+      redirect_to messages_path
     else
       flash[:warning] = "Username and password are incorrect."
       render 'new'
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   def callback
     if user = User.from_omniauth(env["omniauth.auth"])
       sign_in(user)
-      redirect_to users_path
+      redirect_to messages_path
     else
       flash[:error] = "Something went wrong, try again later."
       redirect_to root_path
