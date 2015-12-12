@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Webchat</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tag %>
 </head>
 <body>
+  <nav class="navbar navbar-light bg-faded">
 
-<%= yield %>
+    <!-- Toggle Button -->
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#nav-content">
+      &#9776;
+    </button>
+    <!-- Nav Content -->
+    <div class="collapse navbar-toggleable-xs" id="nav-content">
+      <a class="navbar-brand" href="/">WebChat</a>
+      <ul class="nav navbar-nav">
+        <% if !signed_in? %>
+        <li class="nav-item">
+          <a class="nav-link" href="/sign-up">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sign-in">Sign In</a>
+        </li>
+        <% end %>
+
+        <% if signed_in? %>
+        <li class="nav-item">
+          <a class="nav-link" href="/sign-out">Sign Out</a>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+
+  <%= flash_messages %>
+  <%= yield %>
 
 </body>
 </html>

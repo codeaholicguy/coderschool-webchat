@@ -1,0 +1,6 @@
+<div class="container">
+  <div class="row">
+    <%= image_tag current_user.try(:avatar_url) %>
+    <%= current_user.try(:name) %>
+  </div>
+</div>
