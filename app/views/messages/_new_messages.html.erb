@@ -1,8 +1,14 @@
 <h4><span class="label label-primary">Unread messages</span></h4>
 <div class="list-group">
+  <% if !current_user.new_messages.empty? %>
   <% current_user.new_messages.page(params[:new_messages_page]).each do |message| %>
   <a class="list-group-item row" href="<%= conversation_path(friend_id: message.try(:sender).try(:id)) %>">
     <%= render message %>
+  </a>
+  <% end %>
+  <% else %>
+  <a class="list-group-item row" href="#">
+    No new message.
   </a>
   <% end %>
 </div>
