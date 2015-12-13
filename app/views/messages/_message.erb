@@ -10,7 +10,7 @@
   <p class="list-group-item-text"><%= message.try(:body) %></p>
 </div>
 <div class="col-sm-2">
-<% if message.try(:seen) && !is_me(message.try(:sender)) %>
+<% if message.try(:seen) && is_me(message.try(:sender)) %>
   <p class="list-group-item-heading message-seen">Seen</p>
 <% end %>
 </div>
