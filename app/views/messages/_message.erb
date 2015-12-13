@@ -5,7 +5,12 @@
   <%= image_tag 'default-avatar.jpg', height: '32', width: '32'  %>
 <% end %>
 </div>
-<div class="col-sm-10 message-body">
+<div class="col-sm-8 message-body">
   <h6 class="list-group-item-heading"><%= message.try(:sender).try(:name) %></h6>
   <p class="list-group-item-text"><%= message.try(:body) %></p>
+</div>
+<div class="col-sm-2">
+<% if message.try(:seen) && !is_me(message.try(:sender)) %>
+  <p class="list-group-item-heading message-seen">Seen</p>
+<% end %>
 </div>

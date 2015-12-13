@@ -80,6 +80,36 @@ class UsersController < ApplicationController
     redirect_to users_path(users_page: params[:users_page])
   end
 
+  def remove_friend
+    friendship1 = current_user.friendships.find_by(friend_id: params[:friend_id])
+    friendship2 = User.find(params[:friend_id]).friendships.find_by(friend_id: current_user.id)
+
+    if !friendship1.destroy || !friendship2.destroy
+      flash[:error] = "Something went wrong, try again later."
+    end
+    redirect_to users_path(users_page: params[:users_page])
+  end
+
+  def block_friend
+    friendship = current_user.friendships.find_by(friend_id: params[:friend_id])
+    friendship.blocked = true
+
+    if !friendship.save
+      flash[:error] = "Something went wrong, try again later."
+    end
+    redirect_to users_path(users_page: params[:users_page])
+  end
+
+  def unblock_friend
+    friendship = current_user.blocked_users.find_by(friend_id: params[:friend_id])
+    friendship.blocked = false
+
+    if !friendship.save
+      flash[:error] = "Something went wrong, try again later."
+    end
+    redirect_to users_path(users_page: params[:users_page])
+  end
+
   private
 
   def user_params
