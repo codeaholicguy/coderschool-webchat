@@ -1,0 +1,11 @@
+<div class="col-sm-2">
+<% if message.try(:sender).try(:avatar_url).present? %>
+  <%= image_tag message.try(:sender).try(:avatar_url), height: '32', width: '32'  %>
+<% else %>
+  <%= image_tag 'default-avatar.jpg', height: '32', width: '32'  %>
+<% end %>
+</div>
+<div class="col-sm-10">
+  <h6 class="list-group-item-heading"><%= message.try(:sender).try(:name) %></h6>
+  <p class="list-group-item-text"><%= message.try(:body) %></p>
+</div>

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.who_not(current_user).page params[:user_page]
   end
 
   def show
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     else
       flash[:error] = "Something went wrong, try again later."
     end
-    redirect_to users_path
+    redirect_to users_path(user_page: params[:user_page])
   end
 
   def accept_friend_request

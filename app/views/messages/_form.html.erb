@@ -1,0 +1,12 @@
+<div class="signup-form">
+  <%= form_for(:message, url: send_message_path(friend_id: params[:friend_id])) do |f| %>
+  <div class="form-group row">
+    <div class="col-sm-8">
+      <%= f.text_area 'body', class: 'form-control', placeholder: 'Message' %>
+    </div>
+    <div class="col-sm-4">
+      <%= f.submit 'Send', class: 'btn btn-block btn-info btn-send' %>
+    </div>
+  </div>
+  <% end %>
+</div>

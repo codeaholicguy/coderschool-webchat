@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   get 'friend-request' => 'users#send_friend_request'
   get 'friend-accept' => 'users#accept_friend_request'
 
+  get 'conversation' => 'messages#show'
+  post 'send-message' => 'messages#create'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

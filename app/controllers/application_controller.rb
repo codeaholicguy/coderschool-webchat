@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :current_user, :signed_in?, :sign_in, :is_friend, :is_me,
-                :is_request_sent, :is_waiting_for_accept, :is_blocked
+                :is_request_sent, :is_waiting_for_accept, :is_blocked,
+                :mark_as_read
 
   def current_user
     return if !session[:user_id].present?
@@ -52,4 +53,11 @@ class ApplicationController < ActionController::Base
     current_user.blocked_users.find_by(friend: user).present?
   end
 
+  def mark_as_read(friend)
+    messages = Message.unread_message(friend)
+    messages.each do |message|
+      message.seen = true
+      message.save
+    end
+  end
 end

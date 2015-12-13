@@ -10,8 +10,11 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  paginates_per 3
+
   has_many :sent_messages, :class_name => 'Message', :foreign_key => 'sender_id'
   has_many :received_messages, :class_name => 'Message', :foreign_key => 'recipient_id'
+  has_many :new_messages, -> { where(:seen => false) }, :class_name => 'Message', :foreign_key => 'recipient_id'
   has_many :friendships, -> { where(:accepted => true, :blocked => false) }
   has_many :blocked_users, -> { where(:blocked => true) }, :class_name => 'Friendship', :foreign_key => 'user_id'
   has_many :friend_requests, -> { where(:accepted => false) }, :class_name => 'Friendship', :foreign_key => 'user_id'
@@ -34,6 +37,10 @@ class User < ActiveRecord::Base
     #
     # Finally, return user
     user.save && user
+  end
+
+  def self.who_not(user)
+    where.not(id: user.id)
   end
 
 end

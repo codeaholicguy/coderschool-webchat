@@ -3,13 +3,13 @@
   <div class="card card-<%= cycle('male', 'female') %>">
     <div class="card-block text-xs-center">
       <% if user.try(:avatar_url).present? %>
-        <%= image_tag user.try(:avatar_url) %>
+        <%= image_tag user.try(:avatar_url), height: '32', width: '32' %>
       <% else %>
-        <%= image_tag 'default-avatar' %>
+        <%= image_tag 'default-avatar', height: '32', width: '32' %>
       <% end %>
       <h4 class="card-title"><%= user.try(:name) %></h4>
       <% if !is_friend(user) && !is_request_sent(user) && !is_waiting_for_accept(user) && !is_blocked(user) %>
-      <a class="btn btn-success" href="<%= friend_request_path(:friend_id => user.try(:id)) %>">Request friend</a>
+      <a class="btn btn-success" href="<%= friend_request_path(friend_id: user.try(:id), user_page: params[:user_page]) %>">Request friend</a>
       <% end %>
       <% if is_request_sent(user) %>
       <a class="btn btn-secondary" href="#">Request sent</a>
