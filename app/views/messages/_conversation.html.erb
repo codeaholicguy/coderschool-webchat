@@ -1,8 +1,14 @@
 <h4><span class="label label-primary"><%= @friend.try(:name) %></span></h4>
 <div class="list-group">
+  <% if !messages.empty? %>
   <% @messages.each do |message| %>
   <div class="list-group-item row">
     <%= render message %>
+  </div>
+  <% end %>
+  <% else %>
+  <div class="list-group-item">
+    No message.
   </div>
   <% end %>
 </div>
