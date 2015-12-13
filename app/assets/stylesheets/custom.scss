@@ -178,3 +178,43 @@ li.list-group-item {
 .btn-send {
   height: 60px;
 }
+
+.list-messages {
+  height: 340px;
+  overflow-y: scroll;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.list-friends {
+  height: 111px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 3px;
+}
+
+.paging {
+  height: 50px;
+}
+
+.list-group-item {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+}
+
+.pagination > li > a {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  color: #373a3c;
+}
+
+.message-body {
+  text-align: left;
+}
+
+.list-group-item.row {
+  margin: 0px;
+}

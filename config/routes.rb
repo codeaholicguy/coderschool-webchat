@@ -21,6 +21,11 @@ Rails.application.routes.draw do
 
   get 'friend-request' => 'users#send_friend_request'
   get 'friend-accept' => 'users#accept_friend_request'
+  get 'friend-reject' => 'users#reject_friend_request'
+  get 'friend-request-cancel' => 'users#cancel_friend_request'
+  get 'friend-block' => 'users#block_friend'
+  get 'friend-unblock' => 'users#unblock_friend'
+  get 'friend-remove' => 'users#remove_friend'
 
   get 'conversation' => 'messages#show'
   post 'send-message' => 'messages#create'

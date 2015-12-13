@@ -1,5 +1,5 @@
 <div class="signup-form">
-  <%= form_for(:message, url: send_message_path(friend_id: params[:friend_id])) do |f| %>
+  <%= form_for(:message, url: send_message_path(friend_id: params[:friend_id], friends_page: params[:friends_page], friend_requests_page: params[:friend_requests_page])) do |f| %>
   <div class="form-group row">
     <div class="col-sm-8">
       <%= f.text_area 'body', class: 'form-control', placeholder: 'Message' %>

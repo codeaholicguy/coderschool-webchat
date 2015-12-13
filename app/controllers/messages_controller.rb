@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
 
   def show
     @friend = User.find(params[:friend_id])
-    @messages = Message.conversation(current_user, User.find(params[:friend_id])).page(params[:messages_page])
+    @messages = Message.conversation(current_user, User.find(params[:friend_id]))
     mark_as_read(@friend)
   end
 
@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
     if !message.save
       flash[:error] = "Something went wrong, try again later."
     end
-    redirect_to conversation_path(friend_id: params[:friend_id])
+    redirect_to conversation_path(friend_id: params[:friend_id], friends_page: params[:friends_page], friend_requests_page: params[:friend_requests_page])
   end
 
   private

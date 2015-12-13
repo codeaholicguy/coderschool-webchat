@@ -1,7 +1,7 @@
 <h4><span class="label label-primary">Unread messages</span></h4>
-<div class="list-group">
+<div class="list-group list-messages">
   <% if !current_user.new_messages.empty? %>
-  <% current_user.new_messages.page(params[:new_messages_page]).each do |message| %>
+  <% current_user.new_messages.each do |message| %>
   <a class="list-group-item row" href="<%= conversation_path(friend_id: message.try(:sender).try(:id)) %>">
     <%= render message %>
   </a>
@@ -12,4 +12,3 @@
   </a>
   <% end %>
 </div>
-<%= paginate current_user.new_messages.page(params[:new_messages_page]), param_name: 'new_messages_page' %>

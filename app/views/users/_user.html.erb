@@ -9,19 +9,21 @@
       <% end %>
       <h4 class="card-title"><%= user.try(:name) %></h4>
       <% if !is_friend(user) && !is_request_sent(user) && !is_waiting_for_accept(user) && !is_blocked(user) %>
-      <a class="btn btn-success" href="<%= friend_request_path(friend_id: user.try(:id), user_page: params[:user_page]) %>">Request friend</a>
+      <a class="btn btn-success" href="<%= friend_request_path(friend_id: user.try(:id), users_page: params[:users_page]) %>">Request friend</a>
       <% end %>
       <% if is_request_sent(user) %>
-      <a class="btn btn-secondary" href="#">Request sent</a>
+      <a class="btn btn-secondary" href="<%= friend_request_cancel_path(friend_id: user.try(:id), users_page: params[:users_page]) %>">Cancel request</a>
       <% end %>
       <% if is_waiting_for_accept(user) %>
-      <a class="btn btn-primary" href="#">Accept</a>
+      <a class="btn btn-primary" href="<%= friend_accept_path(friend_id: user.try(:id), on: 'user', users_page: params[:users_page]) %>">Accept</a>
+      <a class="btn btn-danger" href="<%= friend_reject_path(friend_id: user.try(:id), on: 'user', users_page: params[:users_page]) %>">Reject</a>
       <% end %>
       <% if is_blocked(user) %>
       <a class="btn btn-warning" href="#">Unblock</a>
       <% end %>
       <% if is_friend(user) %>
-      <a class="btn btn-danger" href="#">Remove friend</a>
+      <a class="btn btn-warning" href="#">Block</a>
+      <a class="btn btn-danger" href="#">Remove</a>
       <% end %>
     </div>
   </div>

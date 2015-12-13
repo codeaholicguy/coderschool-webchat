@@ -41,6 +41,7 @@ gem 'rails_12factor', group: :production
 gem 'omniauth'
 gem 'omniauth-facebook', '1.4.0'
 gem 'kaminari'
+gem 'jquery-infinite-pages'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

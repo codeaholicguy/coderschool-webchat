@@ -1,6 +1,6 @@
 <h4><span class="label label-primary">Friends</span></h4>
-<div class="list-group">
-  <% if !current_user.friend_requests.empty? %>
+<div class="list-group list-friends">
+  <% if !current_user.friendships.empty? %>
   <% current_user.friendships.page(params[:friends_page]).each do |friendship| %>
   <a class="list-group-item" href="<%= conversation_path(friend_id: friendship.try(:friend).try(:id), friends_page: params[:friends_page], friend_requests_page: params[:friend_requests_page]) %>">
     <% if friendship.try(:friend).try(:avatar_url).present? %>
@@ -17,4 +17,6 @@
   </a>
   <% end %>
 </div>
-<%= paginate current_user.friendships.page(params[:friends_page]), param_name: 'friends_page' %>
+<div class="paging">
+  <%= paginate current_user.friendships.page(params[:friends_page]), param_name: 'friends_page' %>
+</div>

@@ -1,5 +1,5 @@
 <h4><span class="label label-primary">Friend Requests</span></h4>
-<ul class="list-group">
+<ul class="list-group list-friends">
   <% if !current_user.friend_requests.empty? %>
   <% current_user.friend_requests.page(params[:friend_requests_page]).each do |friend_request| %>
   <li class="list-group-item">
@@ -9,8 +9,8 @@
     <%= image_tag 'default-avatar.jpg', height: '32', width: '32'  %>
     <% end %>
     <%= friend_request.try(:friend).try(:name) %>
-    <a class="btn btn-success" href="<%= friend_accept_path(friend_id: friend_request.try(:friend).try(:id), friends_page: params[:friends_page], friend_requests_page: params[:friend_requests_page]) %>">Accept</a>
-    <a class="btn btn-danger" href="#">Reject</a>
+    <a class="btn btn-success" href="<%= friend_accept_path(friend_id: friend_request.try(:friend).try(:id), on: 'message') %>">Accept</a>
+    <a class="btn btn-danger" href="<%= friend_reject_path(friend_id: friend_request.try(:friend).try(:id), on: 'message') %>">Reject</a>
   </li>
   <% end %>
   <% else %>
@@ -18,5 +18,7 @@
     No friend request.
   </li>
   <% end %>
-  <%= paginate current_user.friend_requests.page(params[:friend_requests_page]), param_name: 'friend_requests_page' %>
 </ul>
+<div class="paging">
+  <%= paginate current_user.friend_requests.page(params[:friend_requests_page]), param_name: 'friend_requests_page' %>
+</div>

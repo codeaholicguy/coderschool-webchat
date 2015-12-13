@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.who_not(current_user).page params[:user_page]
+    @users = User.who_not(current_user).page params[:users_page]
   end
 
   def show
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     else
       flash[:error] = "Something went wrong, try again later."
     end
-    redirect_to users_path(user_page: params[:user_page])
+    redirect_to users_path(users_page: params[:users_page])
   end
 
   def accept_friend_request
@@ -49,7 +49,35 @@ class UsersController < ApplicationController
     else
       flash[:error] = "Something went wrong, try again later."
     end
-    redirect_to messages_path
+
+    if params[:on] == 'user'
+      redirect_to users_path
+    else
+      redirect_to messages_path
+    end
+  end
+
+  def reject_friend_request
+    friendship = current_user.friend_requests.find_by(friend_id: params[:friend_id])
+
+    if !friendship.destroy
+      flash[:error] = "Something went wrong, try again later."
+    end
+
+    if params[:on] == 'user'
+      redirect_to users_path
+    else
+      redirect_to messages_path
+    end
+  end
+
+  def cancel_friend_request
+    friendship = User.find(params[:friend_id]).friend_requests.find_by(friend_id: current_user.id)
+
+    if !friendship.destroy
+      flash[:error] = "Something went wrong, try again later."
+    end
+    redirect_to users_path(users_page: params[:users_page])
   end
 
   private
