@@ -13,8 +13,9 @@ class MessagesController < ApplicationController
     message = Message.new(message_params)
     message.sender = current_user
     message.recipient = User.find(params[:friend_id])
-    if !message.save
-      MessageMailer.new_messages(message).deliver_later
+    if message.save
+      MessageMailer.new_message(message).deliver_later
+    else
       flash[:error] = "Something went wrong, try again later."
     end
     redirect_to conversation_path(friend_id: params[:friend_id], friends_page: params[:friends_page], friend_requests_page: params[:friend_requests_page])
