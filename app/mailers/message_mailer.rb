@@ -1,4 +1,5 @@
 class MessageMailer < ApplicationMailer
+  default from: ENV['MAIL_USER']
 
   def new_message(message)
     @message = message
