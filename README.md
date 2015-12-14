@@ -4,7 +4,7 @@
 
 Submitted by: **Hoang Nguyen**
 
-Time spent: **40** hours
+Time spent: **20** hours
 
 URL: **https://young-mesa-9440.herokuapp.com/**
 
