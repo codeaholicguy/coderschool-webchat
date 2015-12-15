@@ -29,7 +29,7 @@ The following **optional** functionality is complete:
 * [ ] User can have multiple recipients on one message. 
 * [x] User can log in with Facebook. 
 * [ ] Use of the [kaminari gem](https://github.com/amatsuda/kaminari) and [jquery-infinite-pages gem](https://github.com/magoosh/jquery-infinite-pages) to implement Infinite Scroll.
-* [ ] User gets an email when they receive a message, with a link to view the message.
+* [x] User gets an email when they receive a message, with a link to view the message.
 * [ ] User gets an email when a message they have sent is read with the time at which the message was read.
 * [ ] User can send a message to the email address of a non-registered user. The recipient will receive an email with a link to sign up for the service, and after creating an account, will be able to view the sent message. 
 * [x] User A can "block" User B. If User A blocks User B, they will not see messages from User B. User B will not know they have been blocked.
