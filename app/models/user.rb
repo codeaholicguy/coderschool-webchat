@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   has_many :sent_messages, :class_name => 'Message', :foreign_key => 'sender_id'
   has_many :received_messages, :class_name => 'Message', :foreign_key => 'recipient_id'
-  has_many :new_messages, -> { where(:seen => false) }, :class_name => 'Message', :foreign_key => 'recipient_id'
+  has_many :new_messages, -> { joins("join friendships on friend_id = sender_id").where("seen = false and blocked = false") }, :class_name => 'Message', :foreign_key => 'recipient_id'
   has_many :friendships, -> { where(:accepted => true, :blocked => false) }
   has_many :blocked_users, -> { where(:blocked => true) }, :class_name => 'Friendship', :foreign_key => 'user_id'
   has_many :friend_requests, -> { where(:accepted => false) }, :class_name => 'Friendship', :foreign_key => 'user_id'
